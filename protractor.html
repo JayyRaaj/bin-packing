@@ -21,9 +21,60 @@
 	$(function(){
 		window.tool = new PaperDesignTool({canvas: $('canvas')})
 		$("button#download-svg").click(function(){window.tool.save_svg()})
-		draw_protractor()
+		draw_circle()
+		//draw_protractor()
+		draw_square()
+		draw_star()
+
 		paper.view.update()
 	})
+
+	function draw_square(){
+		console.log("Drawing Square...")
+		var rectangle = new paper.Rectangle(new paper.Point(400, 350), new paper.Size(60, 60));
+		var cornerSize = new paper.Size(10, 10);
+		var path = new paper.Path.Rectangle(rectangle, cornerSize);
+		path.strokeColor = 'black';
+		path.fillColor = 'red';
+	}
+
+	function draw_circle(){
+		console.log("Drawing Circle...");
+		//const path = require('path');
+		var path = new paper.Path.Circle({
+			center: [50, 350],
+			radius: 30,
+			strokeColor: 'black',
+			fillColor: 'white',
+		});
+
+	}
+
+	function draw_star(){
+		console.log("Drawing Star...");
+		var path = new paper.Path.Star({
+			position: paper.view.center.add(new paper.Point(100,0)),
+			points: 12,
+			radius1: 20,
+			radius2: 40,
+			fillColor: 'green',
+			points:5,
+			onMouseDown: function(e) { 
+				this.fillColor = 'yellow'
+			},
+			onMouseUp: function(e) {
+				this.fillColor = 'red'
+			},
+			onMouseDrag: function(e) {
+				console.log(e)
+				this.translate(e.delta)
+				
+
+			}
+
+		}
+		);
+	}
 
 
 	function draw_protractor(){
